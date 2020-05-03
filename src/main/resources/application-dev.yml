@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3308/blog?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: tiger
+#jpa
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+#\u65E5\u5FD7
+logging:
+  level:
+    root: info
+    com.zhaoning: debug
