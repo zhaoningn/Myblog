@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <title>关于我</title>
+</head>
+<body>
+<!--导航-->
+<nav th:replace="_fragments :: menu(5)"></nav>
+<!--中间-->
+<div class="m-padded-large m-container">
+    <div class="ui container">
+        <div class="ui stackable grid">
+            <!--            左边图片-->
+            <div class="eleven wide column">
+                <div class="ui segment">
+
+                    <img src="https://picsum.photos/id/1012/800/600" alt="" class="ui rounded image">
+                </div>
+            </div>
+            <!--            右边-->
+            <div class="five wide column">
+                <div class="ui top attached segment">
+                    <div class="ui head">关于我</div>
+                </div>
+                <div class="ui attached segment">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, est minima!</p>
+
+                </div>
+                <div class="ui attached segment">
+                    <div class="ui orange basic label m-margin-tiny">编程</div>
+                    <div class="ui orange basic label m-margin-tiny">运动</div>
+                    <div class="ui orange basic label m-margin-tiny">LOL</div>
+                </div>
+                <div class="ui attached segment">
+                    <div class="ui teal basic label m-margin-tiny">Java</div>
+                    <div class="ui teal basic label m-margin-tiny">MySql</div>
+                </div>
+                <div class="ui bottom attached segment">
+                    <a href="#" class="ui circular icon button"><i class="github icon"></i></a>
+                    <a href="#" class="ui wechat circular icon button"><i class="weixin icon"></i></a>
+                    <a href="#" class="ui qq circular icon button"><i class="qq icon"></i></a>
+                </div>
+                <div class="ui wechat-qr flowing popup transition hidden">
+                    <img src="../static/images/weixin.png" th:src="@{/images/weixin.png}" alt="" class="ui rounded image" style="width: 110px">
+                </div>
+
+                <div class="ui qq-qr flowing popup transition hidden">
+                    <img src="../static/images/weixin.png" th:src="@{/images/weixin.png}" alt="" class="ui rounded image" style="width: 110px">
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!--底部-->
+<footer th:replace="_fragments :: fotter"></footer>
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+
+<!--/*/</th:block>/*/-->
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide')
+    });
+
+    $('.wechat').popup({
+        popup: $('.wechat-qr'),
+        on: 'hover',
+        position: 'bottom center'
+    });
+    $('.qq').popup({
+        popup: $('.qq-qr'),
+        on: 'hover',
+        position: 'bottom center'
+    });
+</script>
+</body>
+</html>

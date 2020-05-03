@@ -15,5 +15,7 @@ logging:
   level:
     root: warn
     com.zhaoning: info
+  file:
+    name: log/spring-pro.log
 server:
   port: 8081

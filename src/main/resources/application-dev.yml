@@ -15,3 +15,5 @@ logging:
   level:
     root: info
     com.zhaoning: debug
+  file:
+    name: log/spring-dev.log
