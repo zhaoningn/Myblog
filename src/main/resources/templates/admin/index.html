@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <title>后台管理</title>
+</head>
+<body>
+<!--导航-->
+<nav th:replace="admin/_fragments :: menu(0)"></nav>
+<div class="ui attached pointing menu">
+    <div class="ui container">
+        <div class="right menu">
+            <a href="#" class="item">发布</a>
+            <a href="#" class="active teal item">列表</a>
+        </div>
+    </div>
+</div>
+<!--中间-->
+<div class="m-padded-large m-container-small">
+    <div class="ui container">
+        <div class="ui success large message">
+            <h3>Hi,</h3>
+            <p>赵凝，欢迎登录！</p>
+        </div>
+        <img src="https://picsum.photos/id/1012/1000/500" th:src="@{/images/weixin.png}" alt="" class="ui rounded bordered fluid image">
+
+    </div>
+</div>
+
+<!--底部-->
+<footer th:replace="admin/_fragments :: fotter"></footer>
+<!--/*/<th:block th:replace="admin/_fragments :: script">/*/-->
+<!--/*/</th:block>/*/-->
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide')
+    });
+
+    $('.ui.dropdown').dropdown({
+        on:'hover'
+    });
+</script>
+</body>
+</html>
