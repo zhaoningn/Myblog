@@ -62,11 +62,14 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog saveBlog(Blog blog) {
 
-        blog.setCreateTime(new Date());
-        blog.setUpdateTime(new Date());
-        blog.setViews(0);
+            blog.setCreateTime(new Date());
+            blog.setUpdateTime(new Date());
+            blog.setViews(0);
+            return blogRepository.save(blog);
 
-        return blogRepository.save(blog);
+
+
+
     }
 
     @Transactional
@@ -78,7 +81,9 @@ public class BlogServiceImpl implements BlogService {
             throw new NotFoundException("该博客不存在");
         }
         //前面替换后面的
+        blog.setCreateTime(blog1.getCreateTime());
         BeanUtils.copyProperties(blog,blog1);
+        blog1.setUpdateTime(new Date());
         return blogRepository.save(blog1);
     }
 

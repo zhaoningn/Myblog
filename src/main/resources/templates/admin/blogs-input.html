@@ -9,21 +9,23 @@
 <div class="ui attached pointing menu">
     <div class="ui container">
         <div class="right menu">
-            <a href="#" class="active teal item">发布</a>
-            <a href="#" class=" item">列表</a>
+            <a href="#" th:href="@{admin/blogs/input}" class="item">发布</a>
+            <a href="#" th:href="@{/admin/blogs}" class="active teal item">列表</a>
         </div>
     </div>
 </div>
-<!--中间-->
+<!--中间 *{type}!=null ? *{type.id}       ${#dates.format(user.date, 'yyyy-MM-dd')}-->
 <div class="m-padded-large m-container">
     <div class="ui container">
-        <form action="#" id="blog-form" th:action="@{/admin/blogs}" method="post" class="ui form">
+        <form action="#" id="blog-form" th:object="${blog}"  th:action="@{/admin/blogs}" method="post" class="ui form">
             <input type="hidden" name="published">
+            <input type="hidden" name="id" th:value="*{id}">
+            <input type="hidden" name="views" th:value="*{id}!=null?*{views}">
             <!-- 博文标题及类型 -->
             <div class="required field">
                 <div class="ui left labeled input">
                     <div class="ui selection teal compact basic dropdown label">
-                        <input type="hidden">
+                        <input type="hidden" name="flag" th:value="*{flag}">
                         <i class="dropdown icon"></i>
                         <div class="text">原创</div>
                         <div class="menu">
@@ -32,13 +34,13 @@
                             <div class="item" data-value="翻译">翻译</div>
                         </div>
                     </div>
-                    <input type="text" name="title" placeholder="标题">
+                    <input type="text" name="title" placeholder="标题" th:value="*{title}">
                 </div>
             </div>
 
             <div class="required field">
                 <div id="md-content" style="z-index: 1 !important;">
-                    <textarea style="display:none" name="content"></textarea>
+                    <textarea style="display:none" name="content" th:text="*{content}"></textarea>
                 </div>
             </div>
             <!-- 分类和标签 -->
@@ -48,7 +50,7 @@
                     <div class="ui left labeled action input">
                         <label class="ui compact teal basic label">分类</label>
                         <div class="ui fluid selection dropdown">
-                            <input type="hidden" name="type.id">
+                            <input type="hidden" name="type.id" th:value="*{type}!=null ? *{type.id}">
                             <i class="dropdown icon"></i>
                             <div class="default text">分类</div>
                             <div class="menu">
@@ -61,7 +63,7 @@
                     <div class="ui left labeled action input">
                         <label class="ui compact teal basic label">标签</label>
                         <div class="ui fluid multiple selection search dropdown">
-                            <input type="hidden" name="tagIds">
+                            <input type="hidden" name="tagIds" th:value="*{tagIds}">
                             <i class="dropdown icon"></i>
                             <div class="default text">标签</div>
                             <div class="menu">
@@ -74,32 +76,36 @@
             <div class="required field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">首图</label>
-                    <input type="text" name="firstPicture" placeholder="首图引用地址">
+                    <input type="text" name="firstPicture" th:value="*{firstPicture}" placeholder="首图引用地址">
                 </div>
             </div>
+            <div class="required field">
+                <textarea name="description" th:text="*{description}" placeholder="博客描述..." maxlength="200"></textarea>
+            </div>
+
             <!-- 自定义复选框 -->
             <div class="inline fields">
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="recommend" name="recommend" class="hidden">
+                        <input type="checkbox" id="recommend" name="recommend" th:checked="*{recommend}" class="hidden">
                         <label for="recommend">是否推荐</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="shareStatement" name="shareStatement" class="hidden" checked>
+                        <input type="checkbox" id="shareStatement" name="shareStatement" th:checked="*{shareStatement}"  class="hidden" >
                         <label for="shareStatement">转载声明</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="appreciation" name="appreciation" class="hidden">
+                        <input type="checkbox" id="appreciation" name="appreciation" th:checked="*{appreciation}" class="hidden">
                         <label for="appreciation">赞赏功能</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="commentabled" name="commentabled" class="hidden" checked>
+                        <input type="checkbox" id="commentabled" name="commentabled" th:checked="*{commentabled}" class="hidden" >
                         <label for="commentabled">允许评论</label>
                     </div>
                 </div>
@@ -110,8 +116,8 @@
             <div class="ui right aligned container">
                 <!-- 返回上级页面 -->
                 <button type="button" class="ui teal basic button" onclick="window.history.go(-1)">返回</button>
-                <button type="button" id="save-button" class="ui green button">存为草稿</button>
-                <button type="button" id="publish-button" class="ui blue button">发布</button>
+                <button type="button" id="save-button" class="ui orange button">存为草稿</button>
+                <button type="button" id="publish-button" class="ui teal button">发布</button>
             </div>
 
         </form>
@@ -182,9 +188,16 @@
                     identifier: 'firstPicture',
                     rules: [{
                         type: 'empty',
-                        prompt: '标题：请输入博客首图'
+                        prompt: '标题：请输入博客首图地址'
                     }]
                 },
+                description: {
+                    identifier: 'description',
+                    rules: [{
+                        type: 'empty',
+                        prompt: '标题：请输入博客描述'
+                    }]
+                }
 
             }
         })

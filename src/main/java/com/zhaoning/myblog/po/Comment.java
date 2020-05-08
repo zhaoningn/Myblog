@@ -1,5 +1,9 @@
 package com.zhaoning.myblog.po;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +15,9 @@ import java.util.List;
  */
 @Entity
 @Table(name = "t_comment")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Comment {
 
     @Id
