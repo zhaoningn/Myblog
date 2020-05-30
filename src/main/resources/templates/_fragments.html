@@ -17,16 +17,19 @@
     <div class="ui container">
         <div class="ui inverted secondary stackable menu ">
             <h2 class="ui teal item header">Blog</h2>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==1}?'active'"><i class=" home icon"></i>首页</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==2}?'active'"><i class=" idea icon"></i>分类</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==3}?'active'"><i class=" tags icon"></i>标签</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==4}?'active'"><i class=" clone icon"></i>归档</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==5}?'active'"><i class=" info icon"></i>关于我</a>
+            <a href="#" th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1}?'active'"><i class=" home icon"></i>首页</a>
+            <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide" th:classappend="${n==2}?'active'"><i class=" idea icon"></i>分类</a>
+            <a href="#" th:href="@{/tags/-1}"class="m-item item m-mobile-hide" th:classappend="${n==3}?'active'"><i class=" tags icon"></i>标签</a>
+            <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4}?'active'"><i class=" clone icon"></i>归档</a>
+            <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==5}?'active'"><i class=" info icon"></i>关于我</a>
             <div class="right m-item item m-mobile-hide">
-                <div class="ui icon input">
-                    <input type="text" placeholder="Search...">
-                    <i class="search link icon"></i>
-                </div>
+                <form action="" name="search" method="post" th:action="@{/search}" target="_blank">
+                    <div class="ui icon input">
+                        <input type="text" name="query" placeholder="Search..." th:value="${query}">
+                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
@@ -48,8 +51,8 @@
             </div>
             <div class="three wide column">
                 <h4 class="ui inverted header m-opacity-mini m-text-lined m-text-spaced">最新博客</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item">用户故事</a>
+                <div class="ui inverted link list" th:fragment="newblogList">
+                    <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" class="item" th:each="blog:${newblogs}" th:text="${blog.title}">用户故事</a>
                     <a href="#" class="item">用户故事</a>
                     <a href="#" class="item">用户故事</a>
                 </div>
